@@ -49,6 +49,8 @@ jobs:
 
       - name: Run pre-build
         run: bun run scripts/pre_build.js
+        env:
+          MATRIX_ARGS: ${{ matrix.args }}
 
       - uses: tauri-apps/tauri-action@v0
         env:

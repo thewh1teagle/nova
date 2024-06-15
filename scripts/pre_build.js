@@ -4,7 +4,12 @@ import os from "os";
 import path from "path";
 
 const rustInfo = await $`rustc -vV`.text();
-const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+let targetTriple;
+if (process.env?.MATRIX_ARGS?.includes("x86_64-apple-darwin")) {
+  targetTriple = "x86_64-apple-darwin";
+} else {
+  targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+}
 
 const originalCWD = process.cwd();
 // Change CWD to src-tauri
