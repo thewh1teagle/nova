@@ -1,0 +1,15 @@
+{
+    "$schema": "./gen/schemas/linux-schema.json",
+    "bundle": {
+        "linux": {
+            "deb": {
+                "depends": [
+                    "ffmpeg"
+                ]
+            }
+        },
+        "resources": {
+            "yt-dlp": "yt-dlp"
+        }
+    }
+}
