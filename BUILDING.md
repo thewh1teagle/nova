@@ -6,6 +6,7 @@
 
 
 ```console
+bun install
 bun run scripts/pre_build.js
 cd src-tauri
 bunx tauri build

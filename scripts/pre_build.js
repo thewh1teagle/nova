@@ -87,7 +87,8 @@ if (platform == 'macos') {
 	}
 	// Setup yt-dlp
 	if (!(await fs.exists(config.ytDlpRealName))) {
-		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}`
+		await $`wget -nc --show-progress ${config.macos.ytDlpUrl} -O ${config.ytDlpRealName}`
+		await $`chmod +x ${config.ytDlpRealName}`
 	}
 	// Setup ffmpeg and ffprobe
 	if (!(await fs.exists(config.ffmpegRealName))) {

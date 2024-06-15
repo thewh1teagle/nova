@@ -33,3 +33,6 @@ schemas/
 
 *.exe
 ffmpeg/
+yt-dlp-*
+ffprobe-*
+ffmpeg-*
