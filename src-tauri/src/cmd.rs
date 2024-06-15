@@ -3,12 +3,13 @@ use std::path::PathBuf;
 use tauri::{async_runtime::spawn, AppHandle, Manager};
 use tauri_plugin_shell::{process::CommandEvent, ShellExt};
 
-use eyre::Result;
 use crate::utils;
+use eyre::Result;
 
 /// Returns command ID
 #[tauri::command]
 pub fn yt_dlp_command(app_handle: AppHandle, args: Vec<String>) -> String {
+    log::debug!("yt_dlp_command {:?}", args);
     let command = app_handle.shell().sidecar("yt-dlp").unwrap();
     let (mut rx, mut _child) = command.args(args).spawn().expect("Failed to spawn yt-dlp");
     let window = app_handle.get_webview_window("main").unwrap();
