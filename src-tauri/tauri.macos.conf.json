@@ -13,11 +13,10 @@
             ],
             "signingIdentity": "-"
         },
-        "resources": {
-            "ffmpeg/bin/*": "./"
-        },
         "externalBin": [
-            "yt-dlp"
+            "yt-dlp",
+            "ffmpeg",
+            "ffprobe"
         ]
     }
 }

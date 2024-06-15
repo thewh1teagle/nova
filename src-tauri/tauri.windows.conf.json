@@ -1,10 +1,12 @@
 {
     "bundle": {
         "resources": {
-            "ffmpeg\\bin\\x64\\*": "./"
+            "ffmpeg\\bin\\x64\\*.dll": "./"
         },
         "externalBin": [
-            "yt-dlp"
+            "yt-dlp",
+            "ffmpeg",
+            "ffprobe"
         ]
     }
 }

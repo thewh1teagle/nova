@@ -19,8 +19,10 @@ const cwd = process.cwd()
 
 
 const config = {
-	ffmpegRealname: 'ffmpeg',
-	ytDlpRealName: 'yt-dlp',
+	ffmpegDirName: `ffmpeg`,
+	ffmpegRealName: platform === 'windows' ? `ffmpeg-${targetTriple}.exe` : `ffmpeg-${targetTriple}`,
+	ffprobeRealName: platform === 'windows' ? `ffprobe-${targetTriple}.exe` : `ffprobe-${targetTriple}`,
+	ytDlpRealName: platform === 'windows' ? `yt-dlp-${targetTriple}.exe` : `yt-dlp-${targetTriple}`,
 	windows: {
 		ffmpegName: 'ffmpeg-6.1-windows-desktop-vs2022ltl-default',
 		ffmpegUrl: 'https://master.dl.sourceforge.net/project/avbuild/windows-desktop/ffmpeg-6.1-windows-desktop-vs2022ltl-default.7z?viasf=1',
@@ -41,7 +43,7 @@ const config = {
 }
 // Export for Github actions
 const exports = {
-	ffmpeg: path.join(cwd, config.ffmpegRealname),
+	ffmpeg: path.join(cwd, config.ffmpegDirName),
 }
 
 /* ########## Linux ########## */
@@ -56,31 +58,41 @@ if (platform == 'linux') {
 /* ########## Windows ########## */
 if (platform == 'windows') {
 	// Setup FFMPEG
-	if (!(await fs.exists(config.ffmpegRealname))) {
+	if (!(await fs.exists(config.ffmpegDirName))) {
 		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ffmpegUrl} -O ${config.windows.ffmpegName}.7z`
 		await $`'C:\\Program Files\\7-Zip\\7z.exe' x ${config.windows.ffmpegName}.7z`
-		await $`mv ${config.windows.ffmpegName} ${config.ffmpegRealname}`
+		await $`mv ${config.windows.ffmpegName} ${config.ffmpegDirName}`
 		await $`rm -rf ${config.windows.ffmpegName}.7z`
-		await $`mv ${config.ffmpegRealname}/lib/x64/* ${config.ffmpegRealname}/lib/`
+		await $`mv ${config.ffmpegDirName}/lib/x64/* ${config.ffmpegDirName}/lib/`
 	}
 	// Setup yt-dlp
-	if (!(await fs.exists(`${config.ytDlpRealName}-${targetTriple}.exe`))) {
-		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}-${targetTriple}.exe`
+	if (!(await fs.exists(`${config.ytDlpRealName}`))) {
+		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}`
+	}
+	// Setup ffmpeg and ffprobe
+	if (!(await fs.exists(config.ffmpegRealName))) {
+		await fs.copyFile(path.join(cwd, 'ffmpeg/bin/x64/ffmpeg.exe'), path.join(cwd, config.ffmpegRealName))
+		await fs.copyFile(path.join(cwd, 'ffmpeg/bin/x64/ffprobe.exe'), path.join(cwd, config.ffprobeRealName))
 	}
 }
 
 /* ########## macOS ########## */
 if (platform == 'macos') {
 	// Setup FFMPEG
-	if (!(await fs.exists(config.ffmpegRealname))) {
+	if (!(await fs.exists(config.ffmpegDirName))) {
 		await $`wget -nc --show-progress ${config.macos.ffmpegUrl} -O ${config.macos.ffmpegName}.tar.xz`
 		await $`tar xf ${config.macos.ffmpegName}.tar.xz`
-		await $`mv ${config.macos.ffmpegName} ${config.ffmpegRealname}`
+		await $`mv ${config.macos.ffmpegName} ${config.ffmpegDirName}`
 		await $`rm ${config.macos.ffmpegName}.tar.xz`
 	}
 	// Setup yt-dlp
-	if (!(await fs.exists(`${config.ytDlpRealName}-${targetTriple}`))) {
-		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}-${targetTriple}`
+	if (!(await fs.exists(config.ytDlpRealName))) {
+		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}`
+	}
+	// Setup ffmpeg and ffprobe
+	if (!(await fs.exists(config.ffmpegRealName))) {
+		await fs.copyFile(path.join(cwd, 'ffmpeg/bin/ffmpeg'), path.join(cwd, config.ffmpegRealName))
+		await fs.copyFile(path.join(cwd, 'ffmpeg/bin/ffprobe'), path.join(cwd, config.ffprobeRealName))
 	}
 }
 
