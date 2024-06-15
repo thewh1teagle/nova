@@ -36,3 +36,4 @@ ffmpeg/
 yt-dlp-*
 ffprobe-*
 ffmpeg-*
+.tauri/
