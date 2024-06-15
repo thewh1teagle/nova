@@ -1,15 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { invoke } from "@tauri-apps/api/core";
-import { listen } from "@tauri-apps/api/event";
-import { ReactComponent as LinkIcon } from "~/icons/link.svg";
 import { ReactComponent as DownloadIcon } from "~/icons/download.svg";
 import { useState } from "react";
 import DownloadItem from "~/components/DownloadItem";
 import Format from "~/components/Format";
 
 export default function Home() {
-  const { t } = useTranslation();
-  const [urls, setUrls] = useState([
+  const [urls, _setUrls] = useState([
     "https://www.youtube.com/watch?v=XzilCu9PcZk&pp=ygUFcGVkcm8%3D",
   ]);
 

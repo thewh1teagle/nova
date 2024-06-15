@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
-import { join, resolve, downloadDir } from "@tauri-apps/api/path";
+import { join, downloadDir } from "@tauri-apps/api/path";
 import { useEffect, useState } from "react";
 import { getThumbnail } from "~/lib/utils";
 
@@ -10,8 +10,8 @@ interface DownloadItemProps {
 export default function DownloadItem({ url }: DownloadItemProps) {
   const [progress, setProgress] = useState<number | null>(0);
   const [thumbnailURL, setThumbnailURL] = useState<string>();
-  const [path, setPath] = useState<string>("");
-  const [title, setTitle] = useState("");
+  const [path, _setPath] = useState<string>("");
+  const [title, _setTitle] = useState("");
 
   async function download() {
     const path = await join(await downloadDir(), "%(title)s.%(ext)s");
