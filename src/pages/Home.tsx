@@ -7,10 +7,10 @@ export default function Home() {
     const [url, setUrl] = useState('')
 
     async function onClick() {
-        const command = Command.sidecar('yt-dlp', ["-J", "https://www.youtube.com/watch?v=XzilCu9PcZk&pp=ygUFcGVkcm8%3D"]);
+        const command = Command.sidecar('yt-dlp', ["-J", "https://www.instagram.com/reel/C8J1GRKgm3G/?utm_source=ig_web_copy_link"]);
         const output = await command.execute();
         const data = JSON.parse(output.stdout)
-        const thumbNailURL = data.thumbnails.slice(-1)[0].url
+        const thumbNailURL = data?.thumbnails?.slice(-1)?.[0]?.url || data.thumbnail
         setUrl(thumbNailURL)
 
     }
