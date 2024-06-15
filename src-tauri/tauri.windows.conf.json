@@ -1,8 +1,10 @@
 {
     "bundle": {
         "resources": {
-            "ffmpeg\\bin\\x64\\*": "./",
-            "./yt-dlp.exe": "./"
-        }
+            "ffmpeg\\bin\\x64\\*": "./"
+        },
+        "externalBin": [
+            "yt-dlp"
+        ]
     }
 }

@@ -3,6 +3,10 @@ import fs from 'fs/promises'
 import os from 'os'
 import path from 'path'
 
+
+const rustInfo = await $`rustc -vV`.text()
+const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+
 const originalCWD = process.cwd()
 // Change CWD to src-tauri
 process.chdir(path.join(__dirname, '../src-tauri'))
@@ -60,8 +64,8 @@ if (platform == 'windows') {
 		await $`mv ${config.ffmpegRealname}/lib/x64/* ${config.ffmpegRealname}/lib/`
 	}
 	// Setup yt-dlp
-	if (!(await fs.exists(`${config.ytDlpRealName}.exe`))) {
-		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}.exe`
+	if (!(await fs.exists(`${config.ytDlpRealName}-${targetTriple}.exe`))) {
+		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}-${targetTriple}.exe`
 	}
 }
 
@@ -75,8 +79,8 @@ if (platform == 'macos') {
 		await $`rm ${config.macos.ffmpegName}.tar.xz`
 	}
 	// Setup yt-dlp
-	if (!(await fs.exists(config.ytDlpRealName))) {
-		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}`
+	if (!(await fs.exists(`${config.ytDlpRealName}-${targetTriple}`))) {
+		await $`C:\\msys64\\usr\\bin\\wget.exe -nc --show-progress ${config.windows.ytDlpUrl} -O ${config.ytDlpRealName}-${targetTriple}`
 	}
 }
 

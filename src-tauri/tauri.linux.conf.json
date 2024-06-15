@@ -8,8 +8,8 @@
                 ]
             }
         },
-        "resources": {
-            "yt-dlp": "yt-dlp"
-        }
+        "externalBin": [
+            "yt-dlp"
+        ]
     }
 }

@@ -14,8 +14,10 @@
             "signingIdentity": "-"
         },
         "resources": {
-            "ffmpeg/bin/*": "./",
-            "yt-dlp": "yt-dlp"
-        }
+            "ffmpeg/bin/*": "./"
+        },
+        "externalBin": [
+            "yt-dlp"
+        ]
     }
 }

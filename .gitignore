@@ -31,5 +31,5 @@ target/
 # will have schema files for capabilities auto-completion
 schemas/
 
-yt-dlp.exe
+*.exe
 ffmpeg/

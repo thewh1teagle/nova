@@ -48,6 +48,19 @@
     "menu:default",
     "tray:default",
     "shell:allow-open",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "args": true,
+          "cmd": "",
+          "name": "yt-dlp",
+          "sidecar": true
+        }
+      ]
+    },
+    "shell:allow-spawn",
+    "shell:allow-kill",
     "fs:allow-read-dir",
     "fs:allow-read-text-file",
     "fs:allow-app-write"
