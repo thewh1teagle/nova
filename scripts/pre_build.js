@@ -73,7 +73,7 @@ if (platform == "linux") {
   }
   // Setup yt-dlp
   if (!(await fs.exists(`${config.ytDlpRealName}`))) {
-    await $`wget.exe -nc --show-progress ${config.linux.ytDlpUrl} -O ${config.ytDlpRealName}`;
+    await $`wget -nc --show-progress ${config.linux.ytDlpUrl} -O ${config.ytDlpRealName}`;
   }
 }
 
