@@ -13,7 +13,7 @@ if (process.env?.MATRIX_ARGS?.includes("x86_64-apple-darwin")) {
 
 const originalCWD = process.cwd();
 // Change CWD to src-tauri
-process.chdir(path.join(__dirname, "../src-tauri"));
+process.chdir(path.join(__dirname, "../desktop/src-tauri"));
 const platform = {
   win32: "windows",
   darwin: "macos",

@@ -64,4 +64,5 @@ jobs:
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+          projectPath: './desktop'
           tauriScript: bunx tauri
