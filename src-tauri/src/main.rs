@@ -13,7 +13,7 @@ fn main() {
         .setup(|app| setup::setup(app))
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_fs::init())
-        .invoke_handler(tauri::generate_handler![cmd::yt_dlp_command])
+        .invoke_handler(tauri::generate_handler![cmd::yt_dlp_command, cmd::open_path])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

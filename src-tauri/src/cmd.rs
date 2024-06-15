@@ -1,6 +1,9 @@
+use std::path::PathBuf;
+
 use tauri::{async_runtime::spawn, AppHandle, Manager};
 use tauri_plugin_shell::{process::CommandEvent, ShellExt};
 
+use eyre::Result;
 use crate::utils;
 
 /// Returns command ID
@@ -18,9 +21,19 @@ pub fn yt_dlp_command(app_handle: AppHandle, args: Vec<String>) -> String {
                 let line = String::from_utf8(line).unwrap();
                 log::debug!("line: {}", line);
                 window.emit(&download_id, Some(line)).expect("failed to emit event");
-                // write to stdin
             }
         }
     });
     download_id
+}
+
+#[tauri::command]
+/// Opens folder or open folder of a file
+pub async fn open_path(app_handle: AppHandle, path: PathBuf) -> Result<()> {
+    if path.is_file() {
+        showfile::show_path_in_file_manager(path);
+    } else {
+        app_handle.shell().open(path.to_str().unwrap(), None)?;
+    }
+    Ok(())
 }
